@@ -1,0 +1,36 @@
+Socket.io is a tool that enables bi-directional communication between the client and the server.
+There is this constant socket that enables realtime bi-directional event-based communication between
+the server and the client so that both the server and the client can send messages instantly between themselves
+so that if the state of the database changes or something in the server changes the client can know immediately
+without needing to pull the server
+
+-socket server
+-socket client
+
+Note:every client that connects to the server has their own socket instance
+
+Socket.io works based on this event based communication technology 
+-you can send a message from the client to the server to listen to an event
+-you can also send a message from the server to the client to listen to an event 
+
+
+
+socket.emit('message', "this is a test");
+
+// sending to all clients, include sender
+io.emit('message', "this is a test");
+
+// sending to all clients except sender
+socket.broadcast.emit('message', "this is a test");
+
+// sending to all clients in 'game' room(channel) except sender
+socket.broadcast.to('game').emit('message', 'nice game');
+
+// sending to all clients in 'game' room(channel), include sender
+io.in('game').emit('message', 'cool game');
+
+// sending to sender client, only if they are in 'game' room(channel)
+socket.to('game').emit('message', 'enjoy the game');
+
+// sending to individual socketid
+socket.broadcast.to(socketid).emit('message', 'for your eyes only');
